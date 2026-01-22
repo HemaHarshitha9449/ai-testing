@@ -4,9 +4,18 @@ let previousInput = '';
 let operator = '';
 let shouldResetDisplay = false;
 let angleMode = 'deg'; // 'deg' or 'rad'
+let memory = 0; // Memory storage
 
 function updateDisplay() {
     display.textContent = currentInput;
+    updateMemoryIndicator();
+}
+
+function updateMemoryIndicator() {
+    const memIndicator = document.getElementById('memoryIndicator');
+    if (memIndicator) {
+        memIndicator.textContent = memory !== 0 ? 'M' : '';
+    }
 }
 
 function appendNumber(number) {
@@ -384,6 +393,37 @@ function calculateAtan() {
     currentInput = (angleMode === 'deg' ? toDegrees(result) : result).toString();
     shouldResetDisplay = true;
     updateDisplay();
+}
+
+function memoryAdd() {
+    const current = parseFloat(currentInput);
+    if (!isNaN(current)) {
+        memory += current;
+        shouldResetDisplay = true;
+        updateMemoryIndicator();
+    }
+}
+
+function memorySubtract() {
+    const current = parseFloat(currentInput);
+    if (!isNaN(current)) {
+        memory -= current;
+        shouldResetDisplay = true;
+        updateMemoryIndicator();
+    }
+}
+
+function memoryRecall() {
+    if (memory !== 0) {
+        currentInput = memory.toString();
+        shouldResetDisplay = true;
+        updateDisplay();
+    }
+}
+
+function memoryClear() {
+    memory = 0;
+    updateMemoryIndicator();
 }
 
 document.addEventListener('keydown', function(event) {

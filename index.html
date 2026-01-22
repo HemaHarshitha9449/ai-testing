@@ -9,10 +9,16 @@
 <body>
     <div class="calculator">
         <div class="mode-indicator">
+            <span id="memoryIndicator" style="font-size: 14px; padding: 5px 10px; color: #ffa500; font-weight: bold;"></span>
             <span id="angleMode" onclick="toggleAngleMode()" style="cursor: pointer; font-size: 14px; padding: 5px 10px; background: #667eea; color: white; border-radius: 4px;">DEG</span>
         </div>
         <div class="display" id="display">0</div>
         <div class="buttons">
+            <button class="btn memory" onclick="memoryClear()">MC</button>
+            <button class="btn memory" onclick="memoryRecall()">MR</button>
+            <button class="btn memory" onclick="memorySubtract()">M-</button>
+            <button class="btn memory" onclick="memoryAdd()">M+</button>
+
             <button class="btn clear" onclick="clearDisplay()">Clear</button>
             <button class="btn delete" onclick="deleteChar()">Delete</button>
             <button class="btn operator" onclick="appendOperator('/')">Div</button>
