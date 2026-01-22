@@ -47,7 +47,7 @@ body {
     padding: 20px;
     font-size: 1.5rem;
     border: none;
-    border-radius: 10px;
+    border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease;
     font-weight: bold;
@@ -85,7 +85,7 @@ body {
 }
 
 .clear:hover {
-    background: #ff2d20;
+    background: #ff2b20b6;
 }
 
 .delete {

@@ -48,16 +48,16 @@ function calculate() {
     }
 
     switch (operator) {
-        case 'Add':
+        case '+':
             result = prev + current;
             break;
-        case 'Sub':
+        case '-':
             result = prev - current;
             break;
-        case 'Mul':
+        case '*':
             result = prev * current;
             break;
-        case 'Div':
+        case '/':
             if (current === 0) {
                 alert('Cannot divide by zero!');
                 clearDisplay();
@@ -65,6 +65,38 @@ function calculate() {
             }
             result = prev / current;
             break;
+        case 'nthRoot': {
+            const n = prev;
+            const x = current;
+            if (!isFinite(n)) {
+                alert('Root degree must be a finite number.');
+                clearDisplay();
+                return;
+            }
+            if (Math.abs(n) < 1e-12) {
+                alert('Root degree cannot be zero.');
+                clearDisplay();
+                return;
+            }
+            if (x === 0 && n < 0) {
+                alert('Cannot take negative-degree root of zero.');
+                clearDisplay();
+                return;
+            }
+            if (x < 0) {
+                if (Number.isInteger(n) && Math.abs(n % 2) === 1) {
+                    // odd integer root of a negative number is negative
+                    result = -Math.pow(Math.abs(x), 1 / n);
+                } else {
+                    alert('Even or non-integeral root of a negative number is not real.');
+                    clearDisplay();
+                    return;
+                }
+            } else {
+                result = Math.pow(x, 1 / n);
+            }
+            break;
+        }
         default:
             return;
     }
@@ -127,12 +159,42 @@ function calculateLog() {
     updateDisplay();
 }
 
+function calculateAntilog10() {
+    const current = parseFloat(currentInput);
+    if (isNaN(current)) {
+        return;
+    }
+    const val = Math.pow(10, current);
+    if (!isFinite(val)) {
+        alert('Result is too large.');
+        return;
+    }
+    currentInput = val.toString();
+    shouldResetDisplay = true;
+    updateDisplay();
+}
+
+function calculateExp() {
+    const current = parseFloat(currentInput);
+    if (isNaN(current)) {
+        return;
+    }
+    const val = Math.exp(current);
+    if (!isFinite(val)) {
+        alert('Result is too large.');
+        return;
+    }
+    currentInput = val.toString();
+    shouldResetDisplay = true;
+    updateDisplay();
+}
+
 document.addEventListener('keydown', function(event) {
     if (event.key >= '0' && event.key <= '9') {
         appendNumber(event.key);
     } else if (event.key === '.') {
         appendNumber('.');
-    } else if (event.key === 'Add' || event.key === 'Sub' || event.key === 'Mul' || event.key === 'Div') {
+    } else if (event.key === '+' || event.key === '-' || event.key === '*' || event.key === '/') {
         appendOperator(event.key);
     } else if (event.key === 'Enter' || event.key === '=') {
         event.preventDefault();
