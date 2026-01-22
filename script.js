@@ -48,16 +48,16 @@ function calculate() {
     }
 
     switch (operator) {
-        case '+':
+        case 'Add':
             result = prev + current;
             break;
-        case '-':
+        case 'Sub':
             result = prev - current;
             break;
-        case '*':
+        case 'Mul':
             result = prev * current;
             break;
-        case '/':
+        case 'Div':
             if (current === 0) {
                 alert('Cannot divide by zero!');
                 clearDisplay();
@@ -132,7 +132,7 @@ document.addEventListener('keydown', function(event) {
         appendNumber(event.key);
     } else if (event.key === '.') {
         appendNumber('.');
-    } else if (event.key === '+' || event.key === '-' || event.key === '*' || event.key === '/') {
+    } else if (event.key === 'Add' || event.key === 'Sub' || event.key === 'Mul' || event.key === 'Div') {
         appendOperator(event.key);
     } else if (event.key === 'Enter' || event.key === '=') {
         event.preventDefault();
