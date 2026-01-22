@@ -1,0 +1,23 @@
+style.css
+  cb97c4e0b0dce984 25
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.0.37",
+  "base_commit_sha": "45379a9e1c6f41f65ebf5358351abcd3ed5d6af1",
+  "prompts": {
+    "cb97c4e0b0dce984": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "f401b911-75ee-48e8-883c-0922fabedbad",
+        "model": "gpt-5"
+      },
+      "human_author": "HemaHarshitha <cheedella.har@razorpay.com>",
+      "messages": [],
+      "total_additions": 1,
+      "total_deletions": 3,
+      "accepted_lines": 1,
+      "overriden_lines": 0
+    }
+  }
+}

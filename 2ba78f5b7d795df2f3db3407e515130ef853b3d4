@@ -1,0 +1,25 @@
+index.html
+  cb97c4e0b0dce984 41-47
+script.js
+  cb97c4e0b0dce984 68-84,179-192,223-266,268-289,300-301
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.0.37",
+  "base_commit_sha": "2ba78f5b7d795df2f3db3407e515130ef853b3d4",
+  "prompts": {
+    "cb97c4e0b0dce984": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "f401b911-75ee-48e8-883c-0922fabedbad",
+        "model": "gpt-5"
+      },
+      "human_author": "HemaHarshitha <cheedella.har@razorpay.com>",
+      "messages": [],
+      "total_additions": 110,
+      "total_deletions": 0,
+      "accepted_lines": 110,
+      "overriden_lines": 0
+    }
+  }
+}

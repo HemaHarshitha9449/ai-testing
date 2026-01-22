@@ -1,0 +1,27 @@
+style.css
+  088b17455d6a9841 113-121
+script.js
+  088b17455d6a9841 96-129
+index.html
+  088b17455d6a9841 35-37
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.0.37",
+  "base_commit_sha": "c1eed1817a5bd9f981a680398c0ec8944037f5ec",
+  "prompts": {
+    "088b17455d6a9841": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f5b6467c-cee5-41b5-9a8f-ff28614f8e9f",
+        "model": "claude-sonnet-4-5-20250929"
+      },
+      "human_author": "HemaHarshitha <cheedella.har@razorpay.com>",
+      "messages": [],
+      "total_additions": 46,
+      "total_deletions": 0,
+      "accepted_lines": 46,
+      "overriden_lines": 0
+    }
+  }
+}

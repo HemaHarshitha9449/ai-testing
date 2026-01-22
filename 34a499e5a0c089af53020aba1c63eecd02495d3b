@@ -1,0 +1,23 @@
+style.css
+  cb97c4e0b0dce984 7-18,20,25,27,32-39,43,45-46,49-50,56-57,64,68-69,71,73,75,77,81-82,86-92,96-98,102,106,112,116,118,122,126-128,132,136,139-140,144,152,154,158-180
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.0.37",
+  "base_commit_sha": "34a499e5a0c089af53020aba1c63eecd02495d3b",
+  "prompts": {
+    "cb97c4e0b0dce984": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "f401b911-75ee-48e8-883c-0922fabedbad",
+        "model": "gpt-5"
+      },
+      "human_author": "HemaHarshitha <cheedella.har@razorpay.com>",
+      "messages": [],
+      "total_additions": 94,
+      "total_deletions": 34,
+      "accepted_lines": 88,
+      "overriden_lines": 4
+    }
+  }
+}
