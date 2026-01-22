@@ -110,3 +110,12 @@ body {
 .zero {
     grid-column: span 2;
 }
+
+.special {
+    background: #5856d6;
+    color: #fff;
+}
+
+.special:hover {
+    background: #4a49b8;
+}

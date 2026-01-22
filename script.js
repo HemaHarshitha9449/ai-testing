@@ -93,6 +93,40 @@ function deleteChar() {
     updateDisplay();
 }
 
+function calculateSquareRoot() {
+    const current = parseFloat(currentInput);
+
+    if (isNaN(current)) {
+        return;
+    }
+
+    if (current < 0) {
+        alert('Cannot calculate square root of negative number!');
+        return;
+    }
+
+    currentInput = Math.sqrt(current).toString();
+    shouldResetDisplay = true;
+    updateDisplay();
+}
+
+function calculateLog() {
+    const current = parseFloat(currentInput);
+
+    if (isNaN(current)) {
+        return;
+    }
+
+    if (current <= 0) {
+        alert('Cannot calculate logarithm of zero or negative number!');
+        return;
+    }
+
+    currentInput = Math.log10(current).toString();
+    shouldResetDisplay = true;
+    updateDisplay();
+}
+
 document.addEventListener('keydown', function(event) {
     if (event.key >= '0' && event.key <= '9') {
         appendNumber(event.key);
