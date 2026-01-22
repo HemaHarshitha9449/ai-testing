@@ -22,9 +22,7 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: linear-gradient(120deg, var(--bg-1), var(--bg-2), var(--bg-3), var(--bg-4));
-    background-size: 500% 500%;
-    animation: moveGradient 16s ease infinite;
+    background: #0d6efd;
     color: #1641a7;
 }
 
@@ -34,7 +32,7 @@ body {
     border-radius: 22px;
     box-shadow: var(--shadow-strong);
     padding: 22px;
-    width: 360px;
+    width: 320px;
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
 }
