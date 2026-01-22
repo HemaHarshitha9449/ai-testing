@@ -12,6 +12,12 @@
             <span id="memoryIndicator" style="font-size: 14px; padding: 5px 10px; color: #ffa500; font-weight: bold;"></span>
             <span id="angleMode" onclick="toggleAngleMode()" style="cursor: pointer; font-size: 14px; padding: 5px 10px; background: #667eea; color: white; border-radius: 4px;">DEG</span>
         </div>
+        <div class="base-mode-indicator">
+            <button class="base-btn" id="binBtn" onclick="setBaseMode('BIN')">BIN</button>
+            <button class="base-btn" id="octBtn" onclick="setBaseMode('OCT')">OCT</button>
+            <button class="base-btn active" id="decBtn" onclick="setBaseMode('DEC')">DEC</button>
+            <button class="base-btn" id="hexBtn" onclick="setBaseMode('HEX')">HEX</button>
+        </div>
         <div class="display" id="display">0</div>
         <div class="buttons">
             <button class="btn memory" onclick="memoryClear()">MC</button>
@@ -46,6 +52,16 @@
             <button class="btn trig" onclick="calculateSin()">sin</button>
             <button class="btn trig" onclick="calculateCos()">cos</button>
             <button class="btn trig" onclick="calculateTan()">tan</button>
+            <button class="btn hex-digit" id="hexA" onclick="appendHexDigit('A')" disabled>A</button>
+            <button class="btn hex-digit" id="hexB" onclick="appendHexDigit('B')" disabled>B</button>
+            <button class="btn hex-digit" id="hexC" onclick="appendHexDigit('C')" disabled>C</button>
+            <button class="btn hex-digit" id="hexD" onclick="appendHexDigit('D')" disabled>D</button>
+            <button class="btn hex-digit" id="hexE" onclick="appendHexDigit('E')" disabled>E</button>
+            <button class="btn hex-digit" id="hexF" onclick="appendHexDigit('F')" disabled>F</button>
+            <button class="btn bitwise" onclick="bitwiseOperation('AND')">AND</button>
+            <button class="btn bitwise" onclick="bitwiseOperation('OR')">OR</button>
+            <button class="btn bitwise" onclick="bitwiseOperation('XOR')">XOR</button>
+            <button class="btn bitwise" onclick="bitwiseOperation('NOT')">NOT</button>
         </div>
     </div>
     <script src="script.js"></script>

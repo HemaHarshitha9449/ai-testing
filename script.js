@@ -3,11 +3,31 @@ let currentInput = '0';
 let previousInput = '';
 let operator = '';
 let shouldResetDisplay = false;
-let angleMode = 'deg'; 
-let memory = 0; 
+let angleMode = 'deg';
+let memory = 0;
+let baseMode = 'DEC'; 
 
 function updateDisplay() {
-    display.textContent = currentInput;
+    let displayValue = currentInput;
+
+    if (baseMode !== 'DEC' && !currentInput.includes('.') && !isNaN(parseFloat(currentInput))) {
+        const num = parseInt(parseFloat(currentInput));
+        if (num >= 0) {
+            switch (baseMode) {
+                case 'BIN':
+                    displayValue = num.toString(2);
+                    break;
+                case 'OCT':
+                    displayValue = num.toString(8);
+                    break;
+                case 'HEX':
+                    displayValue = num.toString(16).toUpperCase();
+                    break;
+            }
+        }
+    }
+
+    display.textContent = displayValue;
     updateMemoryIndicator();
 }
 
@@ -124,6 +144,15 @@ function calculate() {
             }
             break;
         }
+        case 'AND':
+            result = parseInt(prev) & parseInt(current);
+            break;
+        case 'OR':
+            result = parseInt(prev) | parseInt(current);
+            break;
+        case 'XOR':
+            result = parseInt(prev) ^ parseInt(current);
+            break;
         default:
             return;
     }
@@ -302,6 +331,60 @@ function calculateFactorial() {
     updateDisplay();
 }
 
+function setBaseMode(mode) {
+    baseMode = mode;
+
+    ['binBtn', 'octBtn', 'decBtn', 'hexBtn'].forEach(id => {
+        document.getElementById(id).classList.remove('active');
+    });
+    document.getElementById(mode.toLowerCase() + 'Btn').classList.add('active');
+
+    const hexButtons = ['hexA', 'hexB', 'hexC', 'hexD', 'hexE', 'hexF'];
+    hexButtons.forEach(id => {
+        document.getElementById(id).disabled = (mode !== 'HEX');
+    });
+
+    updateDisplay();
+}
+
+function appendHexDigit(digit) {
+    if (baseMode !== 'HEX') return;
+
+    if (shouldResetDisplay) {
+        currentInput = '0';
+        shouldResetDisplay = false;
+    }
+
+    const currentNum = parseInt(currentInput, 16) || 0;
+    const hexValue = parseInt(digit, 16);
+    const newNum = (currentNum * 16) + hexValue;
+
+    currentInput = newNum.toString();
+    updateDisplay();
+}
+
+function bitwiseOperation(op) {
+    const current = parseInt(parseFloat(currentInput));
+
+    if (isNaN(current)) {
+        alert('Please enter a valid integer for bitwise operations!');
+        return;
+    }
+
+    if (op === 'NOT') {
+        currentInput = (~current).toString();
+        shouldResetDisplay = true;
+        updateDisplay();
+    } else {
+        if (operator !== '' && !shouldResetDisplay) {
+            calculate();
+        }
+        previousInput = currentInput;
+        operator = op;
+        shouldResetDisplay = true;
+    }
+}
+
 document.addEventListener('keydown', function(event) {
     if (event.key >= '0' && event.key <= '9') {
         appendNumber(event.key);
@@ -319,5 +402,7 @@ document.addEventListener('keydown', function(event) {
     } else if (event.key === 'Backspace') {
         event.preventDefault();
         deleteChar();
+    } else if (baseMode === 'HEX' && /^[A-Fa-f]$/.test(event.key)) {
+        appendHexDigit(event.key.toUpperCase());
     }
 });
