@@ -1,0 +1,23 @@
+main.go
+  fdeda46458be05b6 1-7
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.0.37",
+  "base_commit_sha": "b2a1d97316b2e5a58546f623856840d377cc68e6",
+  "prompts": {
+    "fdeda46458be05b6": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e84eaaf5-2568-4a2e-98f2-a86db7efc484",
+        "model": "claude-sonnet-4-5-20250929"
+      },
+      "human_author": "HemaHarshitha <cheedella.har@razorpay.com>",
+      "messages": [],
+      "total_additions": 7,
+      "total_deletions": 0,
+      "accepted_lines": 7,
+      "overriden_lines": 0
+    }
+  }
+}
