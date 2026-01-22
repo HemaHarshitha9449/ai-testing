@@ -8,6 +8,9 @@
 </head>
 <body>
     <div class="calculator">
+        <div class="mode-indicator">
+            <span id="angleMode" onclick="toggleAngleMode()" style="cursor: pointer; font-size: 14px; padding: 5px 10px; background: #667eea; color: white; border-radius: 4px;">DEG</span>
+        </div>
         <div class="display" id="display">0</div>
         <div class="buttons">
             <button class="btn clear" onclick="clearDisplay()">Clear</button>
@@ -45,6 +48,13 @@
             <button class="btn special" onclick="toggleSign()">+/-</button>
             <button class="btn special" onclick="insertPi()">π</button>
             <button class="btn special" onclick="insertE()">e</button>
+
+            <button class="btn trig" onclick="calculateSin()">sin</button>
+            <button class="btn trig" onclick="calculateCos()">cos</button>
+            <button class="btn trig" onclick="calculateTan()">tan</button>
+            <button class="btn trig" onclick="calculateAsin()">sin⁻¹</button>
+            <button class="btn trig" onclick="calculateAcos()">cos⁻¹</button>
+            <button class="btn trig" onclick="calculateAtan()">tan⁻¹</button>
         </div>
     </div>
     <script src="script.js"></script>

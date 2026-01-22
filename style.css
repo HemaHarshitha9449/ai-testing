@@ -39,6 +39,11 @@ body {
     -webkit-backdrop-filter: blur(12px);
 }
 
+.mode-indicator {
+    text-align: right;
+    margin-bottom: 10px;
+}
+
 .display {
     background: linear-gradient(180deg, rgba(17, 24, 39, 0.95), rgba(17, 24, 39, 0.85));
     color: #2357c0;
@@ -156,6 +161,17 @@ body {
 
 .special:hover {
     background: linear-gradient(180deg, #8d8bff, #6765ea);
+}
+
+.trig {
+    background: linear-gradient(180deg, #4ecdc4, #44a3a0);
+    color: #fff;
+    border: 1px solid rgba(68, 163, 160, 0.5);
+    font-size: 1.2rem;
+}
+
+.trig:hover {
+    background: linear-gradient(180deg, #60d5cc, #51b1ae);
 }
 
 @media (max-width: 420px) {

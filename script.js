@@ -3,6 +3,7 @@ let currentInput = '0';
 let previousInput = '';
 let operator = '';
 let shouldResetDisplay = false;
+let angleMode = 'deg'; // 'deg' or 'rad'
 
 function updateDisplay() {
     display.textContent = currentInput;
@@ -287,6 +288,101 @@ function insertE() {
     } else {
         currentInput += value;
     }
+    updateDisplay();
+}
+
+function toggleAngleMode() {
+    angleMode = angleMode === 'deg' ? 'rad' : 'deg';
+    const modeIndicator = document.getElementById('angleMode');
+    if (modeIndicator) {
+        modeIndicator.textContent = angleMode.toUpperCase();
+    }
+}
+
+function toRadians(degrees) {
+    return degrees * (Math.PI / 180);
+}
+
+function toDegrees(radians) {
+    return radians * (180 / Math.PI);
+}
+
+function calculateSin() {
+    const current = parseFloat(currentInput);
+    if (isNaN(current)) {
+        return;
+    }
+    const angle = angleMode === 'deg' ? toRadians(current) : current;
+    currentInput = Math.sin(angle).toString();
+    shouldResetDisplay = true;
+    updateDisplay();
+}
+
+function calculateCos() {
+    const current = parseFloat(currentInput);
+    if (isNaN(current)) {
+        return;
+    }
+    const angle = angleMode === 'deg' ? toRadians(current) : current;
+    currentInput = Math.cos(angle).toString();
+    shouldResetDisplay = true;
+    updateDisplay();
+}
+
+function calculateTan() {
+    const current = parseFloat(currentInput);
+    if (isNaN(current)) {
+        return;
+    }
+    const angle = angleMode === 'deg' ? toRadians(current) : current;
+    const result = Math.tan(angle);
+    if (!isFinite(result)) {
+        alert('Tangent is undefined at this angle!');
+        return;
+    }
+    currentInput = result.toString();
+    shouldResetDisplay = true;
+    updateDisplay();
+}
+
+function calculateAsin() {
+    const current = parseFloat(currentInput);
+    if (isNaN(current)) {
+        return;
+    }
+    if (current < -1 || current > 1) {
+        alert('Arcsin is only defined for values between -1 and 1!');
+        return;
+    }
+    const result = Math.asin(current);
+    currentInput = (angleMode === 'deg' ? toDegrees(result) : result).toString();
+    shouldResetDisplay = true;
+    updateDisplay();
+}
+
+function calculateAcos() {
+    const current = parseFloat(currentInput);
+    if (isNaN(current)) {
+        return;
+    }
+    if (current < -1 || current > 1) {
+        alert('Arccos is only defined for values between -1 and 1!');
+        return;
+    }
+    const result = Math.acos(current);
+    currentInput = (angleMode === 'deg' ? toDegrees(result) : result).toString();
+    shouldResetDisplay = true;
+    updateDisplay();
+}
+
+function calculateAtan() {
+    const current = parseFloat(currentInput);
+    if (isNaN(current)) {
+        return;
+    }
+    const result = Math.atan(current);
+    currentInput = (angleMode === 'deg' ? toDegrees(result) : result).toString();
+    shouldResetDisplay = true;
     updateDisplay();
 }
 
