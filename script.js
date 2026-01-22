@@ -65,6 +65,23 @@ function calculate() {
             }
             result = prev / current;
             break;
+        case 'power': {
+            const base = prev;
+            const exponent = current;
+            if (base < 0 && !Number.isInteger(exponent)) {
+                alert('Non-integer power of a negative base is not a real number.');
+                clearDisplay();
+                return;
+            }
+            // 0^0 is indeterminate; block it
+            if (base === 0 && exponent === 0) {
+                alert('0^0 is undefined.');
+                clearDisplay();
+                return;
+            }
+            result = Math.pow(base, exponent);
+            break;
+        }
         case 'nthRoot': {
             const n = prev;
             const x = current;
@@ -159,6 +176,20 @@ function calculateLog() {
     updateDisplay();
 }
 
+function calculateLn() {
+    const current = parseFloat(currentInput);
+    if (isNaN(current)) {
+        return;
+    }
+    if (current <= 0) {
+        alert('Cannot calculate natural log of zero or negative number!');
+        return;
+    }
+    currentInput = Math.log(current).toString();
+    shouldResetDisplay = true;
+    updateDisplay();
+}
+
 function calculateAntilog10() {
     const current = parseFloat(currentInput);
     if (isNaN(current)) {
@@ -189,6 +220,76 @@ function calculateExp() {
     updateDisplay();
 }
 
+function calculatePercent() {
+    const current = parseFloat(currentInput);
+    if (isNaN(current)) {
+        return;
+    }
+    if (previousInput !== '' && operator !== '') {
+        const prev = parseFloat(previousInput);
+        const percentValue = (prev * current) / 100;
+        currentInput = percentValue.toString();
+        updateDisplay();
+        return;
+    }
+    currentInput = (current / 100).toString();
+    shouldResetDisplay = true;
+    updateDisplay();
+}
+
+function toggleSign() {
+    const current = parseFloat(currentInput);
+    if (isNaN(current)) {
+        return;
+    }
+    if (current === 0) {
+        return;
+    }
+    currentInput = (-current).toString();
+    updateDisplay();
+}
+
+function calculateFactorial() {
+    const n = parseFloat(currentInput);
+    if (!Number.isInteger(n) || n < 0) {
+        alert('Factorial is defined for non-negative integers only.');
+        return;
+    }
+    if (n > 170) {
+        alert('Result too large (would overflow). Try a smaller number.');
+        return;
+    }
+    let result = 1;
+    for (let i = 2; i <= n; i++) {
+        result *= i;
+    }
+    currentInput = result.toString();
+    shouldResetDisplay = true;
+    updateDisplay();
+}
+
+function insertPi() {
+    const value = Math.PI.toString();
+    if (shouldResetDisplay || currentInput === '0') {
+        currentInput = value;
+        shouldResetDisplay = false;
+    } else {
+        currentInput += value;
+    }
+    updateDisplay();
+}
+
+function insertE() {
+    const value = Math.E.toString();
+    if (shouldResetDisplay || currentInput === '0') {
+        currentInput = value;
+        shouldResetDisplay = false;
+    } else {
+        currentInput += value;
+    }
+    updateDisplay();
+}
+
 document.addEventListener('keydown', function(event) {
     if (event.key >= '0' && event.key <= '9') {
         appendNumber(event.key);
@@ -196,6 +297,8 @@ document.addEventListener('keydown', function(event) {
         appendNumber('.');
     } else if (event.key === '+' || event.key === '-' || event.key === '*' || event.key === '/') {
         appendOperator(event.key);
+    } else if (event.key === '^') {
+        appendOperator('power');
     } else if (event.key === 'Enter' || event.key === '=') {
         event.preventDefault();
         calculate();
