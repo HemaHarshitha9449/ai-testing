@@ -5,11 +5,19 @@ A simple, elegant web-based calculator built with HTML, CSS, and JavaScript.
 ## Features
 
 - Basic arithmetic operations: addition (+), subtraction (-), multiplication (×), division (÷)
+- Advanced mathematical functions: power (x^y), nth root (y√x), square root (√), logarithms (log, ln), exponentials (10^x, e^x)
+- Trigonometric functions: sin, cos, tan, and their inverses (sin⁻¹, cos⁻¹, tan⁻¹)
+- Angle mode toggle: switch between degrees (DEG) and radians (RAD)
+- Memory functions: M+ (add to memory), M- (subtract from memory), MR (recall memory), MC (clear memory)
+- Mathematical constants: π (pi) and e (Euler's number)
+- Factorial calculation (x!)
+- Percentage calculations
+- Sign toggle (+/-)
 - Clean and modern user interface
 - Keyboard support for faster input
 - Delete and clear functions
 - Decimal number support
-- Division by zero protection
+- Division by zero protection and error handling
 
 ## How to Use
 

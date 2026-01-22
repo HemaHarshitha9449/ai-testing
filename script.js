@@ -3,9 +3,39 @@ let currentInput = '0';
 let previousInput = '';
 let operator = '';
 let shouldResetDisplay = false;
+let angleMode = 'deg';
+let memory = 0;
+let baseMode = 'DEC'; 
 
 function updateDisplay() {
-    display.textContent = currentInput;
+    let displayValue = currentInput;
+
+    if (baseMode !== 'DEC' && !currentInput.includes('.') && !isNaN(parseFloat(currentInput))) {
+        const num = parseInt(parseFloat(currentInput));
+        if (num >= 0) {
+            switch (baseMode) {
+                case 'BIN':
+                    displayValue = num.toString(2);
+                    break;
+                case 'OCT':
+                    displayValue = num.toString(8);
+                    break;
+                case 'HEX':
+                    displayValue = num.toString(16).toUpperCase();
+                    break;
+            }
+        }
+    }
+
+    display.textContent = displayValue;
+    updateMemoryIndicator();
+}
+
+function updateMemoryIndicator() {
+    const memIndicator = document.getElementById('memoryIndicator');
+    if (memIndicator) {
+        memIndicator.textContent = memory !== 0 ? 'M' : '';
+    }
 }
 
 function appendNumber(number) {
@@ -65,6 +95,64 @@ function calculate() {
             }
             result = prev / current;
             break;
+        case 'power': {
+            const base = prev;
+            const exponent = current;
+            if (base < 0 && !Number.isInteger(exponent)) {
+                alert('Non-integer power of a negative base is not a real number.');
+                clearDisplay();
+                return;
+            }
+            // 0^0 is indeterminate; block it
+            if (base === 0 && exponent === 0) {
+                alert('0^0 is undefined.');
+                clearDisplay();
+                return;
+            }
+            result = Math.pow(base, exponent);
+            break;
+        }
+        case 'nthRoot': {
+            const n = prev;
+            const x = current;
+            if (!isFinite(n)) {
+                alert('Root degree must be a finite number.');
+                clearDisplay();
+                return;
+            }
+            if (Math.abs(n) < 1e-12) {
+                alert('Root degree cannot be zero.');
+                clearDisplay();
+                return;
+            }
+            if (x === 0 && n < 0) {
+                alert('Cannot take negative-degree root of zero.');
+                clearDisplay();
+                return;
+            }
+            if (x < 0) {
+                if (Number.isInteger(n) && Math.abs(n % 2) === 1) {
+                    // odd integer root of a negative number is negative
+                    result = -Math.pow(Math.abs(x), 1 / n);
+                } else {
+                    alert('Even or non-integeral root of a negative number is not real.');
+                    clearDisplay();
+                    return;
+                }
+            } else {
+                result = Math.pow(x, 1 / n);
+            }
+            break;
+        }
+        case 'AND':
+            result = parseInt(prev) & parseInt(current);
+            break;
+        case 'OR':
+            result = parseInt(prev) | parseInt(current);
+            break;
+        case 'XOR':
+            result = parseInt(prev) ^ parseInt(current);
+            break;
         default:
             return;
     }
@@ -93,6 +181,210 @@ function deleteChar() {
     updateDisplay();
 }
 
+function calculateSquareRoot() {
+    const current = parseFloat(currentInput);
+
+    if (isNaN(current)) {
+        return;
+    }
+
+    if (current < 0) {
+        alert('Cannot calculate square root of negative number!');
+        return;
+    }
+
+    currentInput = Math.sqrt(current).toString();
+    shouldResetDisplay = true;
+    updateDisplay();
+}
+
+function calculateLog() {
+    const current = parseFloat(currentInput);
+
+    if (isNaN(current)) {
+        return;
+    }
+
+    if (current <= 0) {
+        alert('Cannot calculate logarithm of zero or negative number!');
+        return;
+    }
+
+    currentInput = Math.log10(current).toString();
+    shouldResetDisplay = true;
+    updateDisplay();
+}
+
+function toRadians(value) {
+    return angleMode === 'deg' ? (value * Math.PI) / 180 : value;
+}
+
+function calculateSin() {
+    const x = parseFloat(currentInput);
+    if (isNaN(x)) return;
+    const radians = toRadians(x);
+    const val = Math.sin(radians);
+    currentInput = val.toString();
+    shouldResetDisplay = true;
+    updateDisplay();
+}
+
+function calculateCos() {
+    const x = parseFloat(currentInput);
+    if (isNaN(x)) return;
+    const radians = toRadians(x);
+    const val = Math.cos(radians);
+    currentInput = val.toString();
+    shouldResetDisplay = true;
+    updateDisplay();
+}
+
+function calculateTan() {
+    const x = parseFloat(currentInput);
+    if (isNaN(x)) return;
+    const radians = toRadians(x);
+    const cosVal = Math.cos(radians);
+    if (Math.abs(cosVal) < 1e-12) {
+        alert('Tangent is undefined for this angle.');
+        return;
+    }
+    const val = Math.tan(radians);
+    currentInput = val.toString();
+    shouldResetDisplay = true;
+    updateDisplay();
+}
+
+function toggleAngleMode() {
+    angleMode = angleMode === 'deg' ? 'rad' : 'deg';
+    const indicator = document.getElementById('angleMode');
+    if (indicator) {
+        indicator.textContent = angleMode.toUpperCase();
+    }
+}
+
+function memoryAdd() {
+    const x = parseFloat(currentInput);
+    if (isNaN(x)) return;
+    memory += x;
+    updateMemoryIndicator();
+}
+
+function memorySubtract() {
+    const x = parseFloat(currentInput);
+    if (isNaN(x)) return;
+    memory -= x;
+    updateMemoryIndicator();
+}
+
+function memoryRecall() {
+    currentInput = memory.toString();
+    shouldResetDisplay = true;
+    updateDisplay();
+}
+
+function memoryClear() {
+    memory = 0;
+    updateMemoryIndicator();
+}
+
+function insertPi() {
+    currentInput = Math.PI.toString();
+    shouldResetDisplay = true;
+    updateDisplay();
+}
+
+function insertE() {
+    currentInput = Math.E.toString();
+    shouldResetDisplay = true;
+    updateDisplay();
+}
+
+function calculateFactorial() {
+    const current = parseFloat(currentInput);
+
+    if (isNaN(current)) {
+        return;
+    }
+
+    if (current < 0) {
+        alert('Cannot calculate factorial of negative number!');
+        return;
+    }
+
+    if (current !== Math.floor(current)) {
+        alert('Factorial only works with whole numbers!');
+        return;
+    }
+
+    if (current > 170) {
+        alert('Number too large for factorial calculation!');
+        return;
+    }
+
+    let result = 1;
+    for (let i = 2; i <= current; i++) {
+        result *= i;
+    }
+
+    currentInput = result.toString();
+    shouldResetDisplay = true;
+    updateDisplay();
+}
+
+function setBaseMode(mode) {
+    baseMode = mode;
+
+    ['binBtn', 'octBtn', 'decBtn', 'hexBtn'].forEach(id => {
+        document.getElementById(id).classList.remove('active');
+    });
+    document.getElementById(mode.toLowerCase() + 'Btn').classList.add('active');
+
+    const hexButtons = ['hexA', 'hexB', 'hexC', 'hexD', 'hexE', 'hexF'];
+    hexButtons.forEach(id => {
+        document.getElementById(id).disabled = (mode !== 'HEX');
+    });
+
+    updateDisplay();
+}
+
+function appendHexDigit(digit) {
+    if (baseMode !== 'HEX') return;
+
+    if (shouldResetDisplay) {
+        currentInput = '0';
+        shouldResetDisplay = false;
+    }
+
+    const currentNum = parseInt(currentInput, 16) || 0;
+    const hexValue = parseInt(digit, 16);
+    const newNum = (currentNum * 16) + hexValue;
+
+    currentInput = newNum.toString();
+    updateDisplay();
+}
+
+function bitwiseOperation(op) {
+    const current = parseInt(parseFloat(currentInput));
+
+    if (isNaN(current)) {
+        alert('Please enter a valid integer for bitwise operations!');
+        return;
+    }
+
+    if (op === 'NOT') {
+        currentInput = (~current).toString();
+        shouldResetDisplay = true;
+        updateDisplay();
+    } else {
+        if (operator !== '' && !shouldResetDisplay) {
+            calculate();
+        }
+        previousInput = currentInput;
+        operator = op;
+        shouldResetDisplay = true;
+    }
+}
+
 document.addEventListener('keydown', function(event) {
     if (event.key >= '0' && event.key <= '9') {
         appendNumber(event.key);
@@ -100,6 +392,8 @@ document.addEventListener('keydown', function(event) {
         appendNumber('.');
     } else if (event.key === '+' || event.key === '-' || event.key === '*' || event.key === '/') {
         appendOperator(event.key);
+    } else if (event.key === '^') {
+        appendOperator('power');
     } else if (event.key === 'Enter' || event.key === '=') {
         event.preventDefault();
         calculate();
@@ -108,5 +402,7 @@ document.addEventListener('keydown', function(event) {
     } else if (event.key === 'Backspace') {
         event.preventDefault();
         deleteChar();
+    } else if (baseMode === 'HEX' && /^[A-Fa-f]$/.test(event.key)) {
+        appendHexDigit(event.key.toUpperCase());
     }
 });
