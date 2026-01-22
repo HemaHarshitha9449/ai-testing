@@ -3,8 +3,8 @@ let currentInput = '0';
 let previousInput = '';
 let operator = '';
 let shouldResetDisplay = false;
-let angleMode = 'deg'; // 'deg' or 'rad'
-let memory = 0; // Memory storage
+let angleMode = 'deg'; 
+let memory = 0; 
 
 function updateDisplay() {
     display.textContent = currentInput;
