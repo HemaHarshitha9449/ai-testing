@@ -186,244 +186,48 @@ function calculateLog() {
     updateDisplay();
 }
 
-function calculateLn() {
-    const current = parseFloat(currentInput);
-    if (isNaN(current)) {
-        return;
-    }
-    if (current <= 0) {
-        alert('Cannot calculate natural log of zero or negative number!');
-        return;
-    }
-    currentInput = Math.log(current).toString();
-    shouldResetDisplay = true;
-    updateDisplay();
-}
-
-function calculateAntilog10() {
-    const current = parseFloat(currentInput);
-    if (isNaN(current)) {
-        return;
-    }
-    const val = Math.pow(10, current);
-    if (!isFinite(val)) {
-        alert('Result is too large.');
-        return;
-    }
-    currentInput = val.toString();
-    shouldResetDisplay = true;
-    updateDisplay();
-}
-
-function calculateExp() {
-    const current = parseFloat(currentInput);
-    if (isNaN(current)) {
-        return;
-    }
-    const val = Math.exp(current);
-    if (!isFinite(val)) {
-        alert('Result is too large.');
-        return;
-    }
-    currentInput = val.toString();
-    shouldResetDisplay = true;
-    updateDisplay();
-}
-
-function calculatePercent() {
-    const current = parseFloat(currentInput);
-    if (isNaN(current)) {
-        return;
-    }
-    if (previousInput !== '' && operator !== '') {
-        const prev = parseFloat(previousInput);
-        const percentValue = (prev * current) / 100;
-        currentInput = percentValue.toString();
-        updateDisplay();
-        return;
-    }
-    currentInput = (current / 100).toString();
-    shouldResetDisplay = true;
-    updateDisplay();
-}
-
-function toggleSign() {
-    const current = parseFloat(currentInput);
-    if (isNaN(current)) {
-        return;
-    }
-    if (current === 0) {
-        return;
-    }
-    currentInput = (-current).toString();
-    updateDisplay();
-}
-
-function calculateFactorial() {
-    const n = parseFloat(currentInput);
-    if (!Number.isInteger(n) || n < 0) {
-        alert('Factorial is defined for non-negative integers only.');
-        return;
-    }
-    if (n > 170) {
-        alert('Result too large (would overflow). Try a smaller number.');
-        return;
-    }
-    let result = 1;
-    for (let i = 2; i <= n; i++) {
-        result *= i;
-    }
-    currentInput = result.toString();
-    shouldResetDisplay = true;
-    updateDisplay();
-}
-
 function insertPi() {
-    const value = Math.PI.toString();
-    if (shouldResetDisplay || currentInput === '0') {
-        currentInput = value;
-        shouldResetDisplay = false;
-    } else {
-        currentInput += value;
-    }
+    currentInput = Math.PI.toString();
+    shouldResetDisplay = true;
     updateDisplay();
 }
 
 function insertE() {
-    const value = Math.E.toString();
-    if (shouldResetDisplay || currentInput === '0') {
-        currentInput = value;
-        shouldResetDisplay = false;
-    } else {
-        currentInput += value;
-    }
-    updateDisplay();
-}
-
-function toggleAngleMode() {
-    angleMode = angleMode === 'deg' ? 'rad' : 'deg';
-    const modeIndicator = document.getElementById('angleMode');
-    if (modeIndicator) {
-        modeIndicator.textContent = angleMode.toUpperCase();
-    }
-}
-
-function toRadians(degrees) {
-    return degrees * (Math.PI / 180);
-}
-
-function toDegrees(radians) {
-    return radians * (180 / Math.PI);
-}
-
-function calculateSin() {
-    const current = parseFloat(currentInput);
-    if (isNaN(current)) {
-        return;
-    }
-    const angle = angleMode === 'deg' ? toRadians(current) : current;
-    currentInput = Math.sin(angle).toString();
+    currentInput = Math.E.toString();
     shouldResetDisplay = true;
     updateDisplay();
 }
 
-function calculateCos() {
+function calculateFactorial() {
     const current = parseFloat(currentInput);
-    if (isNaN(current)) {
-        return;
-    }
-    const angle = angleMode === 'deg' ? toRadians(current) : current;
-    currentInput = Math.cos(angle).toString();
-    shouldResetDisplay = true;
-    updateDisplay();
-}
 
-function calculateTan() {
-    const current = parseFloat(currentInput);
     if (isNaN(current)) {
         return;
     }
-    const angle = angleMode === 'deg' ? toRadians(current) : current;
-    const result = Math.tan(angle);
-    if (!isFinite(result)) {
-        alert('Tangent is undefined at this angle!');
+
+    if (current < 0) {
+        alert('Cannot calculate factorial of negative number!');
         return;
     }
+
+    if (current !== Math.floor(current)) {
+        alert('Factorial only works with whole numbers!');
+        return;
+    }
+
+    if (current > 170) {
+        alert('Number too large for factorial calculation!');
+        return;
+    }
+
+    let result = 1;
+    for (let i = 2; i <= current; i++) {
+        result *= i;
+    }
+
     currentInput = result.toString();
     shouldResetDisplay = true;
     updateDisplay();
-}
-
-function calculateAsin() {
-    const current = parseFloat(currentInput);
-    if (isNaN(current)) {
-        return;
-    }
-    if (current < -1 || current > 1) {
-        alert('Arcsin is only defined for values between -1 and 1!');
-        return;
-    }
-    const result = Math.asin(current);
-    currentInput = (angleMode === 'deg' ? toDegrees(result) : result).toString();
-    shouldResetDisplay = true;
-    updateDisplay();
-}
-
-function calculateAcos() {
-    const current = parseFloat(currentInput);
-    if (isNaN(current)) {
-        return;
-    }
-    if (current < -1 || current > 1) {
-        alert('Arccos is only defined for values between -1 and 1!');
-        return;
-    }
-    const result = Math.acos(current);
-    currentInput = (angleMode === 'deg' ? toDegrees(result) : result).toString();
-    shouldResetDisplay = true;
-    updateDisplay();
-}
-
-function calculateAtan() {
-    const current = parseFloat(currentInput);
-    if (isNaN(current)) {
-        return;
-    }
-    const result = Math.atan(current);
-    currentInput = (angleMode === 'deg' ? toDegrees(result) : result).toString();
-    shouldResetDisplay = true;
-    updateDisplay();
-}
-
-function memoryAdd() {
-    const current = parseFloat(currentInput);
-    if (!isNaN(current)) {
-        memory += current;
-        shouldResetDisplay = true;
-        updateMemoryIndicator();
-    }
-}
-
-function memorySubtract() {
-    const current = parseFloat(currentInput);
-    if (!isNaN(current)) {
-        memory -= current;
-        shouldResetDisplay = true;
-        updateMemoryIndicator();
-    }
-}
-
-function memoryRecall() {
-    if (memory !== 0) {
-        currentInput = memory.toString();
-        shouldResetDisplay = true;
-        updateDisplay();
-    }
-}
-
-function memoryClear() {
-    memory = 0;
-    updateMemoryIndicator();
 }
 
 document.addEventListener('keydown', function(event) {
