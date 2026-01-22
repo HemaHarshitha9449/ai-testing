@@ -119,3 +119,13 @@ body {
 .special:hover {
     background: #4a49b8;
 }
+
+.advanced {
+    background: #007aff;
+    color: #fff;
+    font-size: 1.3rem;
+}
+
+.advanced:hover {
+    background: #0051d5;
+}

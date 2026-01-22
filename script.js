@@ -127,6 +127,50 @@ function calculateLog() {
     updateDisplay();
 }
 
+function insertPi() {
+    currentInput = Math.PI.toString();
+    shouldResetDisplay = true;
+    updateDisplay();
+}
+
+function insertE() {
+    currentInput = Math.E.toString();
+    shouldResetDisplay = true;
+    updateDisplay();
+}
+
+function calculateFactorial() {
+    const current = parseFloat(currentInput);
+
+    if (isNaN(current)) {
+        return;
+    }
+
+    if (current < 0) {
+        alert('Cannot calculate factorial of negative number!');
+        return;
+    }
+
+    if (current !== Math.floor(current)) {
+        alert('Factorial only works with whole numbers!');
+        return;
+    }
+
+    if (current > 170) {
+        alert('Number too large for factorial calculation!');
+        return;
+    }
+
+    let result = 1;
+    for (let i = 2; i <= current; i++) {
+        result *= i;
+    }
+
+    currentInput = result.toString();
+    shouldResetDisplay = true;
+    updateDisplay();
+}
+
 document.addEventListener('keydown', function(event) {
     if (event.key >= '0' && event.key <= '9') {
         appendNumber(event.key);
