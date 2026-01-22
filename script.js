@@ -186,6 +186,78 @@ function calculateLog() {
     updateDisplay();
 }
 
+function toRadians(value) {
+    return angleMode === 'deg' ? (value * Math.PI) / 180 : value;
+}
+
+function calculateSin() {
+    const x = parseFloat(currentInput);
+    if (isNaN(x)) return;
+    const radians = toRadians(x);
+    const val = Math.sin(radians);
+    currentInput = val.toString();
+    shouldResetDisplay = true;
+    updateDisplay();
+}
+
+function calculateCos() {
+    const x = parseFloat(currentInput);
+    if (isNaN(x)) return;
+    const radians = toRadians(x);
+    const val = Math.cos(radians);
+    currentInput = val.toString();
+    shouldResetDisplay = true;
+    updateDisplay();
+}
+
+function calculateTan() {
+    const x = parseFloat(currentInput);
+    if (isNaN(x)) return;
+    const radians = toRadians(x);
+    const cosVal = Math.cos(radians);
+    if (Math.abs(cosVal) < 1e-12) {
+        alert('Tangent is undefined for this angle.');
+        return;
+    }
+    const val = Math.tan(radians);
+    currentInput = val.toString();
+    shouldResetDisplay = true;
+    updateDisplay();
+}
+
+function toggleAngleMode() {
+    angleMode = angleMode === 'deg' ? 'rad' : 'deg';
+    const indicator = document.getElementById('angleMode');
+    if (indicator) {
+        indicator.textContent = angleMode.toUpperCase();
+    }
+}
+
+function memoryAdd() {
+    const x = parseFloat(currentInput);
+    if (isNaN(x)) return;
+    memory += x;
+    updateMemoryIndicator();
+}
+
+function memorySubtract() {
+    const x = parseFloat(currentInput);
+    if (isNaN(x)) return;
+    memory -= x;
+    updateMemoryIndicator();
+}
+
+function memoryRecall() {
+    currentInput = memory.toString();
+    shouldResetDisplay = true;
+    updateDisplay();
+}
+
+function memoryClear() {
+    memory = 0;
+    updateMemoryIndicator();
+}
+
 function insertPi() {
     currentInput = Math.PI.toString();
     shouldResetDisplay = true;
