@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "hooks": {
+    "afterFileEdit": [
+      {
+        "command": "agentblame capture --provider cursor --event afterFileEdit"
+      }
+    ]
+  }
+}
