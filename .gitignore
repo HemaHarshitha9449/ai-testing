@@ -1,0 +1,6 @@
+
+# Agent Blame local database
+.agentblame/
+
+# OpenCode local plugin (installed by agentblame init)
+.opencode/
