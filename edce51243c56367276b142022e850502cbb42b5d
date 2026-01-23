@@ -1,0 +1,21 @@
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.0.37",
+  "base_commit_sha": "edce51243c56367276b142022e850502cbb42b5d",
+  "prompts": {
+    "f9ffacbb78c3d765": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "eaf9e4f3-647a-4f06-81db-185dc53fbc58",
+        "model": "claude-sonnet-4-5-20250929"
+      },
+      "human_author": "HemaHarshitha <cheedella.har@razorpay.com>",
+      "messages": [],
+      "total_additions": 1,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 1
+    }
+  }
+}
